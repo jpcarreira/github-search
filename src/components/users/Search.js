@@ -1,13 +1,19 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 class Search extends Component {
   state = {
     text: ''
   };
 
+  static propTypes = {
+    searchUsers: PropTypes.func.isRequired
+  };
+
   onSubmit = e => {
     e.preventDefault();
-    // TODO: search for a given user an refresh UI
+    this.props.searchUsers(this.state.text);
+    this.setState({ text: '' });
   };
 
   onChange = e => {
