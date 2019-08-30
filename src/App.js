@@ -11,7 +11,6 @@ import GithubState from './context/github/GithubState';
 import './App.css';
 
 const App = () => {
-  const [users, setUsers] = useState([]);
   const [user, setUser] = useState({});
   const [repos, setRepos] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -45,11 +44,6 @@ const App = () => {
     setLoading(false);
   };
 
-  const clearUsers = () => {
-    setUsers([]);
-    setLoading(false);
-  };
-
   const setupAlert = (msg, type) => {
     setAlert({ msg, type });
 
@@ -69,11 +63,7 @@ const App = () => {
                 path='/'
                 render={props => (
                   <Fragment>
-                    <Search
-                      clearUsers={clearUsers}
-                      showClear={users.length > 0 ? true : false}
-                      setAlert={setupAlert}
-                    />
+                    <Search setAlert={setupAlert} />
                     <Users />
                   </Fragment>
                 )}
