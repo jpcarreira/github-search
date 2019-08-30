@@ -36,6 +36,22 @@ const GithubState = props => {
     });
   };
 
+  const getUser = async username => {
+    setLoading();
+
+    const clientId = process.env.REACT_APP_CLIENT_ID;
+    const clientSecret = process.env.REACT_APP_CLIENT_SECRET;
+
+    const res = await axios.get(
+      `https://api.github.com/users/${username}?client_id=${clientId}&client_secret=${clientSecret}`
+    );
+
+    dispatch({
+      type: GET_USER,
+      payload: res.data
+    });
+  };
+
   const clearUsers = () => dispatch({ type: CLEAR_USERS });
 
   const setLoading = () => dispatch({ type: SET_LOADING });
@@ -48,7 +64,8 @@ const GithubState = props => {
         repos: state.repos,
         loading: state.loading,
         searchUsers,
-        clearUsers
+        clearUsers,
+        getUser
       }}
     >
       {props.children}
